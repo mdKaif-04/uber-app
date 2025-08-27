@@ -3,7 +3,8 @@ const blacklistTokenSchema = new mongoose.Schema({
     token: {
         type: String,
         required: true,
-        unique: true
+        unique: true,
+        default: true
     },
     createdAt: {
         type: Date,
