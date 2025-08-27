@@ -8,7 +8,7 @@ const UserProtectWrapper = ({ children }) => {
   const { user, setUser } = useContext(UserDataContext);
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
-  
+   
   useEffect(() => {
     if (!token) {
       navigate("/");
