@@ -6,6 +6,7 @@ import "remixicon/fonts/remixicon.css";
 import LocationPanel from "../component/LocationPanel";
 import uber_car from "../assets/Uber-car.png";
 import uber_auto from "../assets/uber_auto.png";
+import uber_bike from "../assets/uber_bike.png";
 
 const Home = () => {
   const [pickup, setPickup] = React.useState("");
@@ -93,9 +94,9 @@ const Home = () => {
           <LocationPanel />
         </div>
       </div>
-      <div className="fixed z-10 w-full bottom-0 bg-white px-3 ">
-        <h3 className="text-lg font-medium mb-3">Choose a vehicle</h3>
-        <div className="flex w-full p-3 items-center justify-between">
+      <div className="fixed z-10 w-full bottom-0 translate-y-full bg-white px-3 py-8 ">
+        <h3 className="text-lg font-medium my-2">Choose a vehicle</h3>
+        <div className="flex w-full p-3 mb-2 items-center bg-gray-100 rounded-xl border-[#5d6060] active:border justify-between">
           <img src={uber_car} alt="" className="h-16" />
           <div className=" w-1/2" >
             <h4 className="text-base font-medium ">
@@ -107,35 +108,38 @@ const Home = () => {
             <h5 className="text-sm font-medium ">2 mins away</h5>
             <p className="text-xs text-gray-600 ">Affordable, compact rides</p>
           </div>
-          <h2 className="text-xl font-semibold">$19.3</h2>
+          <h2 className="text-md text-gray-900 font-semibold">₹135.7</h2>
         </div>
-        <div className="flex w-full p-3 items-center justify-between">
-          <img src={uber_auto} alt="" className="h-13" />
-          <div className=" w-1/2" >
+        <div className="flex w-full p-3 mb-2  items-center bg-gray-100 rounded-xl border-[#5d6060] active:border justify-between">
+          <img src={uber_auto} alt="" className="h-12  " />
+          <div className="ml-7 w-1/2" >
             <h4 className="text-base font-medium ">
-              Uber Go{" "}
+              Uber auto{" "}
               <span className="">
-                <i className="ri-user-3-fill"></i>4
+                <i className="ri-user-3-fill"></i>3
               </span>
             </h4>
             <h5 className="text-sm font-medium ">2 mins away</h5>
-            <p className="text-xs text-gray-600 ">Affordable, compact rides</p>
+            <p className="text-xs text-gray-600 ">Affordable, Auto rides</p>
           </div>
-          <h2 className="text-xl font-semibold">$19.3</h2>
+          <h2 className="text-md text-gray-900 font-semibold">₹135.7</h2>
         </div>
-        <div className="flex w-full p-3 items-center justify-between">
-          <img src={uber_car} alt="" className="h-16" />
-          <div className=" w-1/2" >
+        
+        
+        
+        <div className="flex w-full  items-center mb-2 bg-gray-100 rounded-xl border-[#5d6060] active:border justify-between">
+          <img src={uber_bike} alt="" className="h-24 " />
+          <div className="ml-3   w-1/2" >
             <h4 className="text-base font-medium ">
-              Uber Go{" "}
+              Uber Bike{" "}
               <span className="">
-                <i className="ri-user-3-fill"></i>4
+                <i className="ri-user-3-fill"></i>1
               </span>
             </h4>
             <h5 className="text-sm font-medium ">2 mins away</h5>
-            <p className="text-xs text-gray-600 ">Affordable, compact rides</p>
+            <p className="text-xs text-gray-600 ">Affordable, Motorcycle rides</p>
           </div>
-          <h2 className="text-xl font-semibold">$19.3</h2>
+          <h2 className="text-md text-gray-900 font-semibold pr-4">₹192.3</h2>
         </div>
       </div>
     </div>
