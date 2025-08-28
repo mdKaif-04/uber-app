@@ -1,19 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
 import uber_logo from "../assets/uber_logo.png";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import "remixicon/fonts/remixicon.css";
 import LocationPanel from "../component/LocationPanel";
-import uber_car from "../assets/Uber-car.png";
-import uber_auto from "../assets/uber_auto.png";
-import uber_bike from "../assets/uber_bike.png";
+
+import VehicelPanel from "../component/VehicelPanel";
+import ConfirmedRide from "../component/ConfirmedRide";
+import LookingDriver from "../component/LookingDriver";
+import WaitingForDriver from "../component/waitingForDriver";
 
 const Home = () => {
   const [pickup, setPickup] = React.useState("");
   const [destination, setDestination] = React.useState("");
   const [panelOpen, setPanelOpen] = React.useState(false);
   const panelRef = React.useRef(null);
+  const vehiclePanelRef = React.useRef(null);
+  const lookingDriverPanelRef = React.useRef(null);
+  const waitingDriverPanelRef = React.useRef(null);
   const panelCloseRef = React.useRef(null);
+  const confirmRidePanelRef = React.useRef(null);
+  const [vehiclePanelOpen, setVehiclePanelOpen] = useState(false)
+  const [confirmRidePanel, setConfirmRidePanel] = useState(false)
+  const [lookingDriverPanel, setLookingDriverPanel] = useState(false)
+  const [waitingDriverPanel, setWaitingDriverPanel] = useState(false)
 
   const handleSumbit = (e) => {
     e.preventDefault();
@@ -28,10 +38,60 @@ const Home = () => {
     });
     gsap.to(panelCloseRef.current, {
       opacity: panelOpen ? 1 : 0,
-      duration: 0.2,
+      duration: 0.1,
       ease: "power3.out",
     });
   }, [panelOpen]);
+
+
+  useGSAP(() => {
+   if(vehiclePanelOpen){
+    gsap.to(vehiclePanelRef.current, {
+     transform:'translateY(0%)',
+    });
+   }else{
+    gsap.to(vehiclePanelRef.current, {
+     transform:'translateY(100%)',
+    });
+   }
+  },[vehiclePanelOpen])
+
+
+  useGSAP(() => {
+   if(confirmRidePanel){
+    gsap.to(confirmRidePanelRef.current, {
+     transform:'translateY(0%)',
+    });
+   }else{
+    gsap.to(confirmRidePanelRef.current, {
+     transform:'translateY(100%)',
+    });
+   }
+  },[confirmRidePanel])
+
+  useGSAP(() => {
+   if(lookingDriverPanel){
+    gsap.to(lookingDriverPanelRef.current, {
+     transform:'translateY(0%)',
+    });
+   }else{
+    gsap.to(lookingDriverPanelRef.current, {
+     transform:'translateY(100%)',
+    });
+   }
+  },[lookingDriverPanel])
+
+  useGSAP(() => {
+   if(waitingDriverPanel){
+    gsap.to(waitingDriverPanelRef.current, {
+     transform:'translateY(0%)',
+    });
+   }else{
+    gsap.to(waitingDriverPanelRef.current, {
+     transform:'translateY(100%)',
+    });
+   }
+  },[waitingDriverPanel])
 
   return (
     <div className="h-screen relative overflow-hidden">
@@ -40,7 +100,7 @@ const Home = () => {
         alt=""
         className="mix-blend-darken w-15 absolute left-5 top-5"
       />
-      <div className="w-screen h-screen ">
+      <div  className="w-screen h-screen ">
         {/* temp img */}
         <img
           className="h-full w-full object-cover"
@@ -91,56 +151,20 @@ const Home = () => {
           </form>
         </div>
         <div ref={panelRef} className="h-0 bg-white ">
-          <LocationPanel />
+          <LocationPanel  setPanelOpen={setPanelOpen} setVehiclePanelOpen={setVehiclePanelOpen}/>
         </div>
       </div>
-      <div className="fixed z-10 w-full bottom-0 translate-y-full bg-white px-3 py-8 ">
-        <h3 className="text-lg font-medium my-2">Choose a vehicle</h3>
-        <div className="flex w-full p-3 mb-2 items-center bg-gray-100 rounded-xl border-[#5d6060] active:border justify-between">
-          <img src={uber_car} alt="" className="h-16" />
-          <div className=" w-1/2" >
-            <h4 className="text-base font-medium ">
-              Uber Go{" "}
-              <span className="">
-                <i className="ri-user-3-fill"></i>4
-              </span>
-            </h4>
-            <h5 className="text-sm font-medium ">2 mins away</h5>
-            <p className="text-xs text-gray-600 ">Affordable, compact rides</p>
-          </div>
-          <h2 className="text-md text-gray-900 font-semibold">₹135.7</h2>
-        </div>
-        <div className="flex w-full p-3 mb-2  items-center bg-gray-100 rounded-xl border-[#5d6060] active:border justify-between">
-          <img src={uber_auto} alt="" className="h-12  " />
-          <div className="ml-7 w-1/2" >
-            <h4 className="text-base font-medium ">
-              Uber auto{" "}
-              <span className="">
-                <i className="ri-user-3-fill"></i>3
-              </span>
-            </h4>
-            <h5 className="text-sm font-medium ">2 mins away</h5>
-            <p className="text-xs text-gray-600 ">Affordable, Auto rides</p>
-          </div>
-          <h2 className="text-md text-gray-900 font-semibold">₹135.7</h2>
-        </div>
-        
-        
-        
-        <div className="flex w-full  items-center mb-2 bg-gray-100 rounded-xl border-[#5d6060] active:border justify-between">
-          <img src={uber_bike} alt="" className="h-24 " />
-          <div className="ml-3   w-1/2" >
-            <h4 className="text-base font-medium ">
-              Uber Bike{" "}
-              <span className="">
-                <i className="ri-user-3-fill"></i>1
-              </span>
-            </h4>
-            <h5 className="text-sm font-medium ">2 mins away</h5>
-            <p className="text-xs text-gray-600 ">Affordable, Motorcycle rides</p>
-          </div>
-          <h2 className="text-md text-gray-900 font-semibold pr-4">₹192.3</h2>
-        </div>
+      <div ref={vehiclePanelRef}  className="fixed z-10 w-full bottom-0  translate-y-full bg-white px-3 py-8 pt-12 ">
+          <VehicelPanel setConfirmRidePanel={setConfirmRidePanel} setVehiclePanelOpen={setVehiclePanelOpen}/>
+      </div>
+      <div ref={confirmRidePanelRef}  className="fixed z-10 w-full bottom-0  translate-y-full bg-white px-3 py-6 pt-12 ">
+          <ConfirmedRide setConfirmRidePanel={setConfirmRidePanel} setLookingDriverPanel={setLookingDriverPanel} />
+      </div>
+      <div ref={lookingDriverPanelRef}  className="fixed z-10 w-full bottom-0  translate-y-full bg-white px-3 py-6 pt-12 ">
+          <LookingDriver setLookingDriverPanel={ setLookingDriverPanel }/>
+      </div>
+      <div ref={waitingDriverPanelRef}  className="fixed z-10 w-full bottom-0   bg-white px-3 py-6 pt-12 ">
+          <WaitingForDriver setWaitingDriverPanel={setWaitingDriverPanel}/>
       </div>
     </div>
   );
