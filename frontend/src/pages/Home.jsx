@@ -9,6 +9,7 @@ import VehicelPanel from "../component/VehicelPanel";
 import ConfirmedRide from "../component/ConfirmedRide";
 import LookingDriver from "../component/LookingDriver";
 import WaitingForDriver from "../component/waitingForDriver";
+import { Link } from "react-router-dom";
 
 const Home = () => {
   const [pickup, setPickup] = React.useState("");
@@ -95,11 +96,8 @@ const Home = () => {
 
   return (
     <div className="h-screen relative overflow-hidden">
-      <img
-        src={uber_logo}
-        alt=""
-        className="mix-blend-darken w-15 absolute left-5 top-5"
-      />
+             <img src={uber_logo} alt="" className="mix-blend-darken w-15 absolute left-5 top-5"  />
+            
       <div  className="w-screen h-screen ">
         {/* temp img */}
         <img
@@ -163,7 +161,7 @@ const Home = () => {
       <div ref={lookingDriverPanelRef}  className="fixed z-10 w-full bottom-0  translate-y-full bg-white px-3 py-6 pt-12 ">
           <LookingDriver setLookingDriverPanel={ setLookingDriverPanel }/>
       </div>
-      <div ref={waitingDriverPanelRef}  className="fixed z-10 w-full bottom-0   bg-white px-3 py-6 pt-12 ">
+      <div ref={waitingDriverPanelRef}  className="fixed z-10 w-full bottom-0 translate-y-full  bg-white px-3 py-6 pt-12 ">
           <WaitingForDriver setWaitingDriverPanel={setWaitingDriverPanel}/>
       </div>
     </div>
