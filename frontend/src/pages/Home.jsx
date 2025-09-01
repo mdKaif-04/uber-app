@@ -9,7 +9,6 @@ import VehicelPanel from "../component/VehicelPanel";
 import ConfirmedRide from "../component/ConfirmedRide";
 import LookingDriver from "../component/LookingDriver";
 import WaitingForDriver from "../component/waitingForDriver";
-import { Link } from "react-router-dom";
 
 const Home = () => {
   const [pickup, setPickup] = React.useState("");

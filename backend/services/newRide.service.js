@@ -44,7 +44,7 @@ async function getFare(pickup, destination) {
   return fare;
 }
 
-function getOtp(num){
+async function getOtp(num){
     return crypto.randomInt(Math.pow(10, num - 1), Math.pow(10, num)).toString();
 
 }
