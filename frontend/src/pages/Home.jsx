@@ -1,15 +1,16 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect, useContext } from "react";
 import uber_logo from "../assets/uber_logo.png";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import "remixicon/fonts/remixicon.css";
 import axios from "axios";
 import LocationPanel from "../component/LocationPanel";
-
 import VehicelPanel from "../component/VehicelPanel";
 import ConfirmedRide from "../component/ConfirmedRide";
 import LookingDriver from "../component/LookingDriver";
 import WaitingForDriver from "../component/waitingForDriver";
+import { SocketContext } from "../context/SocketContext";
+import { UserDataContext } from "../context/UserContext";
 
 const Home = () => {
   const [pickup, setPickup] = React.useState("");
@@ -30,6 +31,14 @@ const Home = () => {
     const [ activeField, setActiveField ] = useState(null)
     const [fare, setFare] = useState({})
     const [vehicleType, setVehicleType] = useState(null)
+    
+
+    const {socket} = useContext(SocketContext)
+    const { user } = useContext(UserDataContext)
+
+    useEffect(()=>{
+      socket.emit('join',{userType : 'user', userId : user._id})
+    })
 
 
 
