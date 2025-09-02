@@ -44,6 +44,8 @@ async function getFare(pickup, destination) {
   return fare;
 }
 
+module.exports.getFare = getFare;
+
 async function getOtp(num){
     return crypto.randomInt(Math.pow(10, num - 1), Math.pow(10, num)).toString();
 
@@ -58,11 +60,12 @@ module.exports.createRide = async ({
     throw new Error("All field are required");
   }
   const fare = await getFare(pickup, destination);
-  const ride = rideModel.create({
+  const otp = await getOtp(6);
+  const ride = await rideModel.create({
     user,
     pickup,
     destination,
-    otp : getOtp(6),
+    otp,
     fare: fare[vehicleType],
   });
   return ride;
