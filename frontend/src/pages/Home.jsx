@@ -229,10 +229,10 @@ const Home = () => {
       <div ref={confirmRidePanelRef}  className="fixed z-10 w-full bottom-0  translate-y-full bg-white px-3 py-6 pt-12 ">
           <ConfirmedRide fare={fare} vehicleType={vehicleType} pickup={pickup} destination={destination} createRide={createRide} setConfirmRidePanel={setConfirmRidePanel} setLookingDriverPanel={setLookingDriverPanel} />
       </div>
-      <div ref={lookingDriverPanelRef}  className="fixed z-10 w-full bottom-0  translate-y-full bg-white px-3 py-6 pt-6 ">
-          <LookingDriver setLookingDriverPanel={ setLookingDriverPanel }/>
+      <div ref={lookingDriverPanelRef}  className="fixed z-10 w-full bottom-0  translate-y-full bg-white px-3 py-6 pt-12 ">
+          <LookingDriver fare={fare} vehicleType={vehicleType} pickup={pickup} destination={destination} createRide={createRide}  setLookingDriverPanel={ setLookingDriverPanel }/>
       </div>
-      <div ref={waitingDriverPanelRef}  className="fixed z-10 w-full bottom-0 translate-y-full  bg-white px-3 py-6 pt-6 ">
+      <div ref={waitingDriverPanelRef}  className="fixed z-10 w-full bottom-0 translate-y-full  bg-white px-3 py-6 pt-12 ">
           <WaitingForDriver setWaitingDriverPanel={setWaitingDriverPanel}/>
       </div>
     </div>

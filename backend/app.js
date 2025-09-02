@@ -18,7 +18,7 @@ app.use(express.urlencoded({extended:true}))
 app.use(cookieParser())
 
 app.get('/',(req,res)=>{
-    res.send('Hello earth3333333')
+    res.send('Hello earth!!')
 })
 app.use('/users',userRoutes)
 app.use('/captains',captainRoutes)

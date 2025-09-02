@@ -1,7 +1,10 @@
-import React from "react";
+import React,{useContext} from "react";
 import profile_dp from "../assets/profileDP.jpg";
+import {CaptainDataContext} from '../context/CaptainContext'
+
 
 const CaptainDetails = () => {
+  const { captain } = useContext(CaptainDataContext)
   return (
     <div>
       <div className="flex  items-center justify-between ">
@@ -11,7 +14,7 @@ const CaptainDetails = () => {
             alt=""
             className="h-12 w-12 object-cover rounded-full"
           />
-          <h4 className="text-lg font-medium">John Doe</h4>
+          <h4 className="text-lg font-medium capitalize">{captain.fullname.firstname + " " + captain?.fullname?.lastname}</h4>
         </div>
         <div>
           <h4 className="text-lg font-medium"> ₹295.40</h4>

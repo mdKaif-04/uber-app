@@ -1,15 +1,21 @@
 import React from "react";
 import uber_car from "../assets/Uber-car.png";
+import uber_auto from "../assets/uber_auto.png";
+import uber_bike from "../assets/uber_bike.png";
 
 const ConfirmedRide = (props) => {
   return (
     <div>
-        <div className="flex relative  ">
+        <div className="flex relative ">
              <h3 className="text-2xl pl-2 font-medium -pt-2">Comfirm for a Driver</h3>
                 <h5 onClick={()=>{props.setConfirmRidePanel(false)}} className="p-3  absolute  text-gray-800 text-2xl px-2 font-medium -top-3 right-0"><i className="ri-arrow-down-wide-line"></i></h5>
                 </div>
       <div className="flex gap-2 flex-col items-center justify-between">
-        <img className="h-30" src={uber_car} alt="" />
+        <img 
+          className={` ${props.vehicleType === 'bike' ? "h-35" : props.vehicleType === 'car' ? 'h-20' : "h-15 mt-4"}`} 
+          src={props.vehicleType === 'car' ? uber_car : props.vehicleType === 'auto' ? uber_auto : uber_bike } 
+          alt={`uber ${props.vehicleType}`} 
+        />
         <div className="w-full  ">
           <div className="flex items-center gap-5 p-2 border-b-[0.1px] border-gray-400">
             <i className="ri-map-pin-user-fill text-lg" />
