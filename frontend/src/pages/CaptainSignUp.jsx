@@ -143,7 +143,7 @@ const CaptainSignUp = () => {
               <option value="moto">Moto</option>
             </select>
           </div>
-          <button className="bg-[#111] text-white text-xl font-semibold mb-7 border-none rounded-lg px-4 py-2  w-full">
+          <button type="submit" className="bg-[#111] text-white text-xl font-semibold mb-7 border-none rounded-lg px-4 py-2  w-full">
             Create Account
           </button>
         </form>

@@ -11,6 +11,9 @@ import LookingDriver from "../component/LookingDriver";
 import WaitingForDriver from "../component/waitingForDriver";
 import { SocketContext } from "../context/SocketContext";
 import { UserDataContext } from "../context/UserContext";
+import { useNavigate } from "react-router-dom";
+import LiveTracking from "../component/LiveTracking";
+
 
 const Home = () => {
   const [pickup, setPickup] = React.useState("");
@@ -31,6 +34,9 @@ const Home = () => {
     const [ activeField, setActiveField ] = useState(null)
     const [fare, setFare] = useState({})
     const [vehicleType, setVehicleType] = useState(null)
+    const [ ride, setRide ] = useState(null)
+    
+    const navigate = useNavigate()
     
 
     const {socket} = useContext(SocketContext)
@@ -38,6 +44,19 @@ const Home = () => {
 
     useEffect(()=>{
       socket.emit('join',{userType : 'user', userId : user._id})
+    },[user])
+
+    socket.on('ride-confirmed', ride => {
+        setLookingDriverPanel(false)
+        setVehiclePanelOpen(false)
+        setWaitingDriverPanel(true)
+        setRide(ride)
+    })
+
+
+  socket.on('ride-started', ride => {
+        setWaitingDriverPanel(false)
+        navigate('/riding', { state: { ride } }) // Updated navigate to include ride data
     })
 
 
@@ -168,19 +187,15 @@ const Home = () => {
     }
 
   return (
-    <div className="h-screen relative overflow-hidden">
+    <div className="h-screen relative overflow-hidden ">
              <img src={uber_logo} alt="" className="mix-blend-darken w-15 absolute left-5 top-5"  />
             
-      <div  className="w-screen h-screen ">
+      <div  className="h-screen w-screen  ">
         {/* temp img */}
-        <img
-          className="h-full w-full object-cover"
-          src="https://www.netmaps.uk/wp-content/uploads/2016/03/Riga-Vector-Map-717x1024.jpg"
-          alt=""
-        />
+             <LiveTracking/>
       </div>
       <div className=" flex flex-col justify-end absolute h-screen top-0 w-full ">
-        <div className="h-[37%] p-6 bg-white relative shadow-md rounded-t-3xl">
+        <div className="h-[36%] p-6 bg-white relative shadow-md rounded-t-3xl">
           <h5
             ref={panelCloseRef}
             onClick={() => setPanelOpen(false)}
@@ -235,14 +250,14 @@ const Home = () => {
       <div ref={vehiclePanelRef}  className="fixed z-10 w-full bottom-0  translate-y-full bg-white px-3 py-8 pt-12 ">
           <VehicelPanel selectVehicle={setVehicleType} fare={fare} setConfirmRidePanel={setConfirmRidePanel} setVehiclePanelOpen={setVehiclePanelOpen}/>
       </div>
-      <div ref={confirmRidePanelRef}  className="fixed z-10 w-full bottom-0  translate-y-full bg-white px-3 py-6 pt-12 ">
-          <ConfirmedRide fare={fare} vehicleType={vehicleType} pickup={pickup} destination={destination} createRide={createRide} setConfirmRidePanel={setConfirmRidePanel} setLookingDriverPanel={setLookingDriverPanel} />
+      <div ref={confirmRidePanelRef}  className="fixed z-10 w-full bottom-0  translate-y-full bg-white px-3 py-8 pt-12 ">
+          <ConfirmedRide  fare={fare} vehicleType={vehicleType} pickup={pickup} destination={destination} createRide={createRide} setConfirmRidePanel={setConfirmRidePanel} setLookingDriverPanel={setLookingDriverPanel} />
       </div>
-      <div ref={lookingDriverPanelRef}  className="fixed z-10 w-full bottom-0  translate-y-full bg-white px-3 py-6 pt-12 ">
+      <div ref={lookingDriverPanelRef}  className="fixed z-10 w-full bottom-0  translate-y-full bg-white px-3 py-8 pt-15 ">
           <LookingDriver fare={fare} vehicleType={vehicleType} pickup={pickup} destination={destination} createRide={createRide}  setLookingDriverPanel={ setLookingDriverPanel }/>
       </div>
-      <div ref={waitingDriverPanelRef}  className="fixed z-10 w-full bottom-0 translate-y-full  bg-white px-3 py-6 pt-12 ">
-          <WaitingForDriver setWaitingDriverPanel={setWaitingDriverPanel}/>
+      <div ref={waitingDriverPanelRef}  className="fixed z-10 w-full bottom-0 translate-y-full  bg-white px-3 py-8 pt-12 ">
+          <WaitingForDriver ride={ride} setWaitingDriverPanel={setWaitingDriverPanel}/>
       </div>
     </div>
   );

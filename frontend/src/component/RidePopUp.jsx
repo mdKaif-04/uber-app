@@ -2,7 +2,7 @@ import React, { useRef } from 'react'
 import profile_dp from "../assets/profileDP.jpg";
 
 
-const RidePopUp = ({setRidePopUpPanel,setConfirmRidePopUpPanel}) => {
+const RidePopUp = ({setRidePopUpPanel,setConfirmRidePopUpPanel,ride,confirmRide}) => {
     
   return (
         <div className=''>
@@ -13,7 +13,7 @@ const RidePopUp = ({setRidePopUpPanel,setConfirmRidePopUpPanel}) => {
                     <div className='flex items-center justify-between  shadow-md bg-slate-200 p-1 rounded-lg shadow-blue-200 my-2 '>
                     <div className='flex items-center gap-3 mt-3'>
                         <img src={profile_dp} alt=""  className='w-12 h-12 rounded-full object-cover'/>
-                        <h2 className='text-xl font-medium'>arjun</h2>
+                        <h2 className='text-xl font-medium'>{ride?.user.fullname.firstname + " " + ride?.user.fullname?.lastname}</h2>
                     </div>
                     <h5>2.2 KM</h5>
                     </div>
@@ -25,7 +25,7 @@ const RidePopUp = ({setRidePopUpPanel,setConfirmRidePopUpPanel}) => {
                   <h3 className="text-lg font-medium">72/78</h3>
                   <p className="text-sm -mt-1 text-gray-700">
                     {" "}
-                    kumbha marg,tonk road, pratapnagar, jaipur
+                    {ride?.pickup}
                   </p>
                 </div>
               </div>
@@ -35,14 +35,14 @@ const RidePopUp = ({setRidePopUpPanel,setConfirmRidePopUpPanel}) => {
                   <h3 className="text-lg font-medium">72/78</h3>
                   <p className="text-sm -mt-1 text-gray-700">
                     {" "}
-                    kumbha marg,tonk road, pratapnagar, jaipur
+                    {ride?.destination}
                   </p>
                 </div>
               </div>
               <div className="flex items-center gap-5 p-2 border-b-[0.1px] border-gray-400">
                 <i className="ri-money-rupee-circle-fill text-lg"></i>
                 <div>
-                  <h3 className="text-lg font-medium">₹194.20</h3>
+                  <h3 className="text-lg font-medium">₹{ride?.fare}</h3>
                   <p className="text-sm -mt-1 text-gray-700"> Cash
                   </p>
                 </div>
@@ -50,7 +50,9 @@ const RidePopUp = ({setRidePopUpPanel,setConfirmRidePopUpPanel}) => {
              
             </div>
             <div className='flex w-full items-center gap-8 mt-4'>
-            <button onClick={()=>{setConfirmRidePopUpPanel(true)}} className="w-full bg-green-600  text-gray-50 px-8 py-2 rounded-lg text-lg  font-semibold" >
+            <button onClick={()=>{setConfirmRidePopUpPanel(true)
+            confirmRide()}}
+             className="w-full bg-green-600  text-gray-50 px-8 py-2 rounded-lg text-lg  font-semibold" >
               Accept
             </button>
             <button onClick={()=>{setRidePopUpPanel(false)

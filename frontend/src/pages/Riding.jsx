@@ -1,28 +1,35 @@
 import React from "react";
 import uber_car from "../assets/Uber-car.png";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { SocketContext } from "../context/SocketContext";
+import LiveTracking from "../component/LiveTracking";
 
 
 const Riding = () => {
+   const location = useLocation()
+    const { ride } = location.state || {} // Retrieve ride data
+    const { socket } = useContext(SocketContext)
+    const navigate = useNavigate()
+
+    socket.on("ride-ended", () => {
+        navigate('/home')
+    })
   return (
     <div className="h-screen ">
         <Link to='/home' className="fixed h-10 w-10 top-2 right-2  bg-white flex  items-center justify-center rounded-full">
             <i className="ri-home-5-line text-lg font-medium"></i>
         </Link>
       <div className="h-1/2">
-        <img
-          src="https://user-images.githubusercontent.com/6416095/52931260-c6bb5e80-3371-11e9-9d46-83f7d1389d18.gif "
-          className="h-full w-full object-cover "
-          alt=""
-        />
+        <LiveTracking/>
       </div>
       <div className="h-1/2 p-4">
         <div className="flex  items-center justify-between">
           <img className="h-15" src={uber_car} alt="" />
           <div className="text-right">
-            <h2 className="text-lg text-slate-900 font-medium">John Doe</h2>
-            <h4 className="text-xl font-semibold -mt-1 -mb-1">ab-12-cd-2943</h4>
-            <p className="text-sm text-gray-700">Maruti Alto K-10</p>
+            <h2 className="text-lg text-slate-900 font-medium capitalize">{ride?.captain.fullname.firstname + " " + ride?.captain.fullname.lastname}</h2>
+            <h4 className="text-xl font-semibold -mt-1 -mb-1 uppercase">{ride?.captain.vehicle.plate}</h4>
+            {/* <p className="text-sm text-gray-700">Maruti Alto K-10</p> */}
           </div>
         </div>
 
@@ -31,17 +38,17 @@ const Riding = () => {
             <div className="flex items-center gap-5 p-2 border-b-[0.1px] border-gray-400">
               <i className="ri-map-pin-2-fill text-lg" />
               <div>
-                <h3 className="text-lg font-medium">72/78</h3>
+                <h3 className="text-lg font-medium">Drop location</h3>
                 <p className="text-sm -mt-1 text-gray-700">
                   {" "}
-                  kumbha marg,tonk road, pratapnagar, jaipur
+                  {ride?.destination}
                 </p>
               </div>
             </div>
             <div className="flex items-center gap-5 p-2 border-b-[0.1px] border-gray-400">
               <i className="ri-money-rupee-circle-fill text-lg"></i>
               <div>
-                <h3 className="text-lg font-medium">₹194.20</h3>
+                <h3 className="text-lg font-medium">₹{ride?.fare}</h3>
                 <p className="text-sm -mt-1 text-gray-700"> Cash</p>
               </div>
             </div>
